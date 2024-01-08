@@ -64,6 +64,8 @@ function operate(a,b,operation){
     return total
 };
 
+
+
 function calculator(){
     let currNum = "";
     let prevNum = "";
@@ -101,7 +103,8 @@ function calculator(){
         }
         if (button.className == "dot"){
             if (dotPressed == false){
-                currNum = currNum + "."
+                currNum = currNum + ".";
+                updateCurrDisplay(currNum);
             }
             dotPressed = true;
         }
@@ -111,9 +114,25 @@ function calculator(){
             updatePrevDisplay("","","");
             dotPressed = false;
         }
+
+        if (button.className == "rem"){
+            lastChar = currNum.slice(-1);
+            if (lastChar == "."){
+                dotPressed = false
+            }
+            currNum = currNum.slice(0,currNum.length - 1);  
+            updateCurrDisplay(currNum)
+        }
+
+        if (button.className == "del"){
+            currNum = ""
+            updateCurrDisplay(currNum);
+        }
     }
     return inner_func
 }
+// some plan, we can all convert this each operation for del rem add bla bla to its own function 
+// for example we can create a digit add function that accept curr from the closure and then add it to and update it to the screeen
 
 function main(){
     let theCalculator = calculator()
